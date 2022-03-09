@@ -2,19 +2,19 @@
 > [Neovim](https://github.com/neovim/neovim) configuration written in Lua targeting Neovim nightly.
 
 
-##  Requirements
+## 📔 Requirements
 
 - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 - [Neovim Nightly](https://github.com/neovim/neovim)
 
-##  Installation
+## ⚙️ Installation
 
 ```
 git clone https://github.com/arashsm79/neovimthal ~/.config/nvim
 nvim +PackerSync
 ```
 
-##  Architecture
+## 📐 Architecture
 ```
 nvim
 ├── init.lua
