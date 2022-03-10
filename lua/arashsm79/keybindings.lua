@@ -93,7 +93,7 @@ M.gitsigns = function(bufnr)
 			s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
 			r = { ":Gitsigns stage_hunk<CR>", "Reset hunk" },
 		},
-	}, { mode = "nv", prefix = "<leader>" })
+	}, { mode = "nv", prefix = "<leader>", buffer = bufnr })
 
 	wk.register({
 		u = {
@@ -110,15 +110,15 @@ M.gitsigns = function(bufnr)
 		},
 		["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
 		["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
-	}, { prefix = "<leader>" })
+	}, { prefix = "<leader>", buffer = bufnr})
 
 	wk.register({
 		["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
 		["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
-	})
+	}, {buffer = bufnr})
 
 	-- Text object
-	vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", {})
+	vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", {buffer = bufnr})
 end
 
 -- nvim-Tree
@@ -131,7 +131,7 @@ end
 -- nvim-cmp
 M.nvim_cmp = function()
 	local cmp = require("cmp")
-	mapping = {
+	local mapping = {
 		["<C-y>"] = cmp.mapping.confirm({ select = true }),
 		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
