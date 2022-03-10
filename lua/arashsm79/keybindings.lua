@@ -47,7 +47,7 @@ M.lsp = {
 				t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Show type definition" },
 				i = { "<Cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
 				r = { "<Cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
-				c = { "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Show references" },
+				c = { "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Code Actions" },
 			},
 			K = { "<Cmd>lua vim.lsp.buf.hover()<CR>", "Hover help" },
 			["<c-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help" },
