@@ -91,27 +91,19 @@ require("packer").startup(function()
 		end,
 	})
 	use("lukas-reineke/indent-blankline.nvim")
-
 	use("LnL7/vim-nix")
-
-	use({
-		"SirVer/ultisnips",
-		config = function()
-			require("arashsm79.plugins.ultisnips")
-		end,
-		ft = { "tex" },
-		after = { "vimtex", "latex-snippets" },
-	})
 	use({
 		"lervag/vimtex",
 		config = function()
 			require("arashsm79.plugins.vimtex")
 		end,
-		-- ft = {'tex'}
 	})
 	use({
-		"gillescastel/latex-snippets",
-		-- ft = {'tex'}
+		"iurimateus/luasnip-latex-snippets.nvim",
+		config = function()
+			require("arashsm79.plugins.luasnip-latex-snippets")
+		end,
+        ft = "tex",
 	})
 	use({
 		"glacambre/firenvim",

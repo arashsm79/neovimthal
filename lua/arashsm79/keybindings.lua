@@ -151,13 +151,6 @@ M.luasnip = function()
 	-- vim.api.nvim_set_keymap("s", "<C-s>", "<Plug>luasnip-next-choice", {})
 end
 
--- Ultisnips (only used for latex files)
-M.ultisnips = function()
-	vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
-	vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
-	vim.g.UltiSnipsExpandTrigger = "<C-q>"
-end
-
 -- Toggle terminal
 M.toggle_term = function()
 	return "<c-space>"
