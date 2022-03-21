@@ -25,7 +25,7 @@ M.misc = function()
 	vim.api.nvim_set_keymap("i", "<C-v>", "<C-r>+", { noremap = true })
 
 	-- Better binding for exiting terminal mode
-	vim.api.nvim_set_keymap("t", "<C-Space>", "<C-\\><C-n>", { noremap = true })
+	vim.api.nvim_set_keymap("t", "<A-Space>", "<C-\\><C-n>", { noremap = true })
 
 	-- Clear white space on empty lines and end of line
 	vim.api.nvim_set_keymap(

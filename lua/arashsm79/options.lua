@@ -73,6 +73,3 @@ opt.smartindent = true
 --
 -- Highlight on yank
 vim.cmd([[ au TextYankPost * silent! lua opt.on_yank() ]])
-
--- Don't show any numbers inside terminals
-vim.cmd([[ au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal ]])
