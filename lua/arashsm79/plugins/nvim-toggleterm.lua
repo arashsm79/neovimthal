@@ -1,5 +1,5 @@
 require("toggleterm").setup({
-	size = 20,
+	size = 15,
 	open_mapping = require("arashsm79.keybindings").toggle_term(),
 	hide_numbers = true, -- hide the number column in toggleterm buffers
 	shade_filetypes = {},

@@ -126,6 +126,13 @@ require("packer").startup(function()
 	use({
 		"simrat39/rust-tools.nvim",
 	})
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("arashsm79.plugins.todo-comments")
+		end,
+    }
 	-- use 'mfussenegger/nvim-dap'
 	-- use 'mfussenegger/nvim-dap-python'
 	-- use 'nvim-telescope/telescope-dap.nvim'
