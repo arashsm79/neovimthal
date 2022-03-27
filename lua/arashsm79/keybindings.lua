@@ -36,7 +36,7 @@ M.misc = function()
 	)
 end
 
--- Language server protocol
+-- lsp
 M.lsp = {
 	general = function(bufnr)
 		wk.register({
@@ -141,7 +141,7 @@ M.nvim_cmp = function()
 	return mapping
 end
 
--- luasnip (used for LSP snippets)
+-- luasnip
 M.luasnip = function()
 	vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
 	vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
@@ -151,7 +151,7 @@ M.luasnip = function()
 	-- vim.api.nvim_set_keymap("s", "<C-s>", "<Plug>luasnip-next-choice", {})
 end
 
--- Toggle terminal
+-- toggle-term
 M.toggle_term = function()
 	return "<c-space>"
 end
@@ -180,11 +180,12 @@ M.nvim_bufferline = function()
 		["]b"] = { "<cmd>BufferLineCycleNext<CR>", "Next buffer" },
 		["[h"] = { "<cmd>BufferLineMovePrev<CR>", "Move buffer left" },
 		["]h"] = { "<cmd>BufferLineMoveNext<CR>", "Move buffer right" },
+		["<leader>q"] = { "<cmd>bdelete!<CR>", "Close current buffer" },
 		["<leader><TAB>"] = { "<cmd>BufferLinePick<CR>", "Pick buffer" },
 	})
 end
 
--- nvim dap
+-- nvim-dap
 -- telescope-dap
 -- using namespace d
 M.nvim_dap = function()
@@ -219,7 +220,7 @@ M.nvim_dap = function()
 	})
 end
 
--- hop.nvim
+-- hop
 M.hop = function()
 	wk.register({
 		H = { "<cmd>lua require'hop'.hint_char1()<CR>", "Char hint" },
