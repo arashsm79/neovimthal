@@ -158,20 +158,30 @@ end
 
 -- telescope
 -- using namespace t
-M.telescope = function()
-	wk.register({
-		t = {
-			name = "Telescope",
-			b = { "<cmd>Telescope buffers<cr>", "Show buffers" },
-			f = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy find buffer" },
-			t = { "<cmd>Telescope tags<cr>", "Show tags" },
-			["?"] = { "<cmd>Telescope oldfiles<cr>", "Show recent files" },
-			s = { "<cmd>Telescope grep_string<cr>", "grep string" },
-			l = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-		},
-		["<space>"] = { [[<cmd>Telescope find_files<cr>]], "Find Files" },
-	}, { prefix = "<leader>" })
-end
+M.telescope = {
+	telescope = function()
+		wk.register({
+			t = {
+				name = "Telescope",
+				b = { "<cmd>Telescope buffers<cr>", "Show buffers" },
+				f = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy find buffer" },
+				t = { "<cmd>Telescope tags<cr>", "Show tags" },
+				["?"] = { "<cmd>Telescope oldfiles<cr>", "Show recent files" },
+				s = { "<cmd>Telescope grep_string<cr>", "grep string" },
+				l = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+			},
+			["<space>"] = { [[<cmd>Telescope find_files<cr>]], "Find Files" },
+		}, { prefix = "<leader>" })
+	end,
+	todo_comments = function()
+		wk.register({
+			t = {
+				name = "Telescope",
+				d = { "<cmd>TodoTelescope<cr>", "Show TODOs" },
+			},
+		}, { prefix = "<leader>" })
+	end,
+}
 
 -- nvim-bufferline
 M.nvim_bufferline = function()

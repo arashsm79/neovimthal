@@ -53,3 +53,6 @@ require("todo-comments").setup({
 		-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 	},
 })
+
+-- Set related keybindings
+require("arashsm79.keybindings").telescope.todo_comments()

@@ -15,4 +15,4 @@ require("telescope").setup({
 })
 
 -- Set related keybindings
-require("arashsm79.keybindings").telescope()
+require("arashsm79.keybindings").telescope.telescope()
