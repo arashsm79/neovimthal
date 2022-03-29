@@ -103,7 +103,7 @@ require("packer").startup(function()
 		config = function()
 			require("arashsm79.plugins.luasnip-latex-snippets")
 		end,
-        ft = "tex",
+		ft = "tex",
 	})
 	use({
 		"glacambre/firenvim",
@@ -126,14 +126,14 @@ require("packer").startup(function()
 	use({
 		"simrat39/rust-tools.nvim",
 	})
-    use({
-        "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim",
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
 		config = function()
-            print("nice")
+			print("nice")
 			require("arashsm79.plugins.todo-comments")
 		end,
-    })
+	})
 	-- use 'mfussenegger/nvim-dap'
 	-- use 'mfussenegger/nvim-dap-python'
 	-- use 'nvim-telescope/telescope-dap.nvim'

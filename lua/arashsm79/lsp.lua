@@ -192,7 +192,7 @@ require("rust-tools").setup({
 					allFeatures = true,
 				},
 				checkOnSave = {
-					command = "clippy" -- or "check",
+					command = "clippy", -- or "check",
 				},
 				diagnostics = {
 					warningsAsHint = {
