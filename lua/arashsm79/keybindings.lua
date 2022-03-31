@@ -39,15 +39,16 @@ end
 -- lsp
 M.lsp = {
 	general = function(bufnr)
+		local builtin = require("telescope.builtin")
 		wk.register({
 			g = {
 				name = "Go to",
 				D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaraction" },
-				d = { "<Cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
-				t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Show type definition" },
-				i = { "<Cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
-				r = { "<Cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
-				c = { "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Code Actions" },
+				d = { builtin.lsp_definitions, "Go to definition" },
+				t = { builtin.lsp_type_definitions, "Show type definition" },
+				i = { builtin.lsp_implementation, "Go to implementation" },
+				r = { builtin.lsp_references, "Show references" },
+				c = { builtin.lsp_code_actions, "Code Actions" },
 			},
 			K = { "<Cmd>lua vim.lsp.buf.hover()<CR>", "Hover help" },
 			["<c-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help" },
@@ -64,7 +65,12 @@ M.lsp = {
 				g = {
 					name = "Lsp",
 					r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-					d = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", "Set diagnostic local list" },
+					d = {
+						function()
+							builtin.diagnostics({ bufnr = 0 })
+						end,
+						"Show diagnostics",
+					},
 				},
 				e = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "Show line diagnostics" },
 			},
