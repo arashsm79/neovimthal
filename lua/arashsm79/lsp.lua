@@ -230,7 +230,7 @@ nvim_lsp.hls.setup({
 })
 
 -- Java
-nvim_lsp.hls.setup({
+nvim_lsp.java_language_server.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	cmd = { "java-language-server" },
@@ -271,15 +271,9 @@ nvim_lsp.texlab.setup({
 })
 
 -- C/C++
-nvim_lsp.ccls.setup({
+nvim_lsp.clangd.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	root_dir = function(fname)
-		local root_pattern = util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")
-		local filename = util.path.is_absolute(fname) and fname or util.path.join(vim.loop.cwd(), fname)
-		-- Uncomment if you want to start LSP on projects that dont have git or compile_commands
-		return root_pattern(filename) -- or util.path.dirname(filename)
-	end,
 })
 
 -- Lua

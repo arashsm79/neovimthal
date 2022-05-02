@@ -134,9 +134,11 @@ require("packer").startup(function()
 			require("arashsm79.plugins.todo-comments")
 		end,
 	})
+    use({
+        'norcalli/nvim-colorizer.lua'
+    })
 	-- use 'mfussenegger/nvim-dap'
 	-- use 'mfussenegger/nvim-dap-python'
 	-- use 'nvim-telescope/telescope-dap.nvim'
 	-- use 'tpope/vim-surround'
-	-- use 'norcalli/nvim-colorizer.lua'
 end)
