@@ -1,5 +1,4 @@
 local opt = vim.opt
-local g = vim.g
 
 -- Set the theme
 vim.cmd([[colorscheme codedark]])
@@ -63,10 +62,10 @@ opt.splitbelow = true
 opt.completeopt = "menu,menuone,noselect"
 
 -- Tab stuff
-opt.shiftwidth = 4
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.expandtab = true
+opt.tabstop = 4 -- number of visual spaces per TAB
+opt.softtabstop = 4 -- number of spaces in tab when editing
+opt.shiftwidth = 4 -- number of spaces to use for autoindent
+opt.expandtab = true -- tabs are space
 opt.smartindent = true
 
 -- auto commands

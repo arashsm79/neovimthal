@@ -86,6 +86,7 @@ M.lsp = {
 					f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format file" },
 				},
 			}, { prefix = "<leader>", buffer = bufnr })
+	        vim.keymap.set({ "v" }, "=", "<cmd>lua vim.lsp.buf.formatting()<CR>", { buffer = bufnr })
 		end,
 	},
 }
