@@ -60,14 +60,14 @@ require("packer").startup(function()
 	})
 	use("lambdalisue/suda.vim")
 	use({
-		"akinsho/nvim-bufferline.lua",
+		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("arashsm79.plugins.nvim-bufferline")
 		end,
 	})
 	use({
-		"akinsho/nvim-toggleterm.lua",
+		"akinsho/toggleterm.nvim",
 		config = function()
 			require("arashsm79.plugins.nvim-toggleterm")
 		end,

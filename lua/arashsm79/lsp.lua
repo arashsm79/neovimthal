@@ -11,12 +11,12 @@ local on_attach = function(client, bufnr)
 	keybindings.lsp.general()
 
 	-- Set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting or client.resolved_capabilities.document_range_formatting then
+	if client.server_capabilities.document_formatting or client.server_capabilities.document_range_formatting then
 		keybindings.lsp.capabilities.formatting()
 	end
 
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.document_highlight then
 		vim.api.nvim_exec(
 			[[
 		hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow

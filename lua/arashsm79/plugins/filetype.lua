@@ -19,10 +19,16 @@ require("filetype").setup({
 			["cpp"] = function()
 				vim.opt.filetype = "cpp"
 				vim.opt.cinoptions = vim.opt.cinoptions .. "L0"
+				vim.opt.tabstop = 2 -- number of visual spaces per TAB
+				vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+				vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
 			end,
 			["c"] = function()
 				vim.opt.filetype = "c"
 				vim.opt.cinoptions = vim.opt.cinoptions .. "L0"
+				vim.opt.tabstop = 2 -- number of visual spaces per TAB
+				vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+				vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
 			end,
 		},
 		function_literal = {

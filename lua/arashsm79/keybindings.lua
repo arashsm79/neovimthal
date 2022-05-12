@@ -72,7 +72,7 @@ M.lsp = {
 						"Show diagnostics",
 					},
 				},
-				e = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "Show line diagnostics" },
+				e = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show line diagnostics" },
 			},
 			["[d"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "Go to next diagnostic" },
 			["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Go to previous diagnostic" },
@@ -86,7 +86,7 @@ M.lsp = {
 					f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format file" },
 				},
 			}, { prefix = "<leader>", buffer = bufnr })
-	        vim.keymap.set({ "v" }, "=", "<cmd>lua vim.lsp.buf.formatting()<CR>", { buffer = bufnr })
+			vim.keymap.set({ "v" }, "=", "<cmd>lua vim.lsp.buf.formatting()<CR>", { buffer = bufnr })
 		end,
 	},
 }
@@ -138,8 +138,13 @@ end
 -- nvim-cmp
 M.nvim_cmp = function()
 	local cmp = require("cmp")
-	local mapping = {
-		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+    local types = require('cmp.types')
+    local mapping = {
+        ['<Down>'] = cmp.mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Select }),
+        ['<Up>'] = cmp.mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Select }),
+        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Insert }),
+        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert }),
+        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
 		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<C-q>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),

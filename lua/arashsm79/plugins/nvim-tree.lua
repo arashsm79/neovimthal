@@ -3,7 +3,6 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
 	auto_reload_on_write = true,
 	-- disables netrw completely
 	disable_netrw = false,
-	hide_root_folder = false,
 	-- hijack the cursor in the tree to put it at the start of the filename
 	hijack_cursor = false,
 	-- hijack netrw window on startup
