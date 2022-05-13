@@ -130,8 +130,13 @@ require("packer").startup(function()
 		"folke/todo-comments.nvim",
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
-			print("nice")
 			require("arashsm79.plugins.todo-comments")
+		end,
+	})
+	use({
+		"xiyaowong/nvim-transparent",
+		config = function()
+			require("arashsm79.plugins.nvim-transparent")
 		end,
 	})
 	use({
