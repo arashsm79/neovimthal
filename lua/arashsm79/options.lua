@@ -2,6 +2,7 @@ local opt = vim.opt
 
 -- Set the theme
 vim.cmd([[colorscheme codedark]])
+vim.g.transparent_enabled = true
 
 -- Incremental live completion
 opt.inccommand = "nosplit"

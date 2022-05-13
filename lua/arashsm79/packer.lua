@@ -136,7 +136,7 @@ require("packer").startup(function()
 	use({
 		"xiyaowong/nvim-transparent",
 		config = function()
-			require("arashsm79.plugins.nvim-transparent")
+			require("arashsm79.plugins.transparent")
 		end,
 	})
 	use({
