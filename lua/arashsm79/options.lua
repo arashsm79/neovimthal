@@ -10,8 +10,8 @@ opt.inccommand = "nosplit"
 -- Always use the system clipboard
 -- opt.clipboard = "unnamedplus"
 
--- Better window title
-opt.title = true
+-- Better window title (turned off for now because of bug in ncurses)
+opt.title = false
 
 -- Enable mouse support in 'a'll modes
 opt.mouse = "a"
