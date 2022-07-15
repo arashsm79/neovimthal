@@ -9,6 +9,7 @@ local on_attach = function(client, bufnr)
 
 	local keybindings = require("arashsm79.keybindings")
 	keybindings.lsp.general()
+	keybindings.lsp.capabilities.formatting()
 
 	-- Set some keybinds conditional on server capabilities
 	if client.server_capabilities.document_formatting or client.server_capabilities.document_range_formatting then
@@ -60,6 +61,21 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 nvim_lsp.pylsp.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
+    settings = {
+        pylsp = {
+            plugins = {
+                pylint = {
+                    enabled = true,
+                    args = {
+                        "--disable=invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,redefined-outer-name,too-few-public-methods"
+                    },
+                },
+                rope_completion = {
+                    enabled = true,
+                },
+            },
+        },
+    },
 })
 
 -- Rust
@@ -272,6 +288,7 @@ nvim_lsp.texlab.setup({
 
 -- C/C++
 nvim_lsp.clangd.setup({
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda'},
 	on_attach = on_attach,
 	capabilities = capabilities,
 })

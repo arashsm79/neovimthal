@@ -134,13 +134,13 @@ require("packer").startup(function()
 		end,
 	})
 	use({
+		"norcalli/nvim-colorizer.lua",
+	})
+	use({
 		"xiyaowong/nvim-transparent",
 		config = function()
 			require("arashsm79.plugins.transparent")
 		end,
-	})
-	use({
-		"norcalli/nvim-colorizer.lua",
 	})
 	-- use 'mfussenegger/nvim-dap'
 	-- use 'mfussenegger/nvim-dap-python'

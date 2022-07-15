@@ -83,10 +83,10 @@ M.lsp = {
 			wk.register({
 				g = {
 					name = "Lsp",
-					f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format file" },
+					f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format file" },
+					a = { "<cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range Format file" },
 				},
 			}, { prefix = "<leader>", buffer = bufnr })
-			vim.keymap.set({ "v" }, "=", "<cmd>lua vim.lsp.buf.formatting()<CR>", { buffer = bufnr })
 		end,
 	},
 }
