@@ -10,8 +10,8 @@ require("nvim-treesitter.configs").setup({
 		enable = false,
 	},
 })
-vim.wo.foldmethod = "expr"
-vim.wo.foldlevel = 0
-vim.wo.foldminlines = 1
-vim.wo.foldnestmax = 1
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.wo.foldmethod = "expr"
+-- vim.wo.foldlevel = 0
+-- vim.wo.foldminlines = 1
+-- vim.wo.foldnestmax = 1
+-- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"

@@ -4,6 +4,7 @@ require("filetype").setup({
 		extensions = {
 			-- Set the filetype of *.pn files to potion
 		    sdf = "xml",
+		    nix = "nix",
 		},
 		literal = {
 			-- Set the filetype of files named "MyBackupFile" to lua

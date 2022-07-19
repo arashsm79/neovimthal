@@ -198,14 +198,11 @@ require("rust-tools").setup({
 		-- setting it to false may improve startup time
 		on_attach = on_attach,
 		capabilities = capabilities,
-		standalone = true,
+		standalone = false,
 		settings = {
 			["rust-analyzer"] = {
 				assist = {
 					importGranularity = "module",
-				},
-				cargo = {
-					allFeatures = true,
 				},
 				checkOnSave = {
 					command = "clippy", -- or "check",
