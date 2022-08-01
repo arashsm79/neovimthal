@@ -43,28 +43,30 @@ M.lsp = {
 		wk.register({
 			g = {
 				name = "Go to",
-				D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaraction" },
+				D = { vim.lsp.buf.declaration, "Go to declaraction" },
 				d = { builtin.lsp_definitions, "Go to definition" },
 				t = { builtin.lsp_type_definitions, "Show type definition" },
-				i = { builtin.lsp_implementation, "Go to implementation" },
+				i = { builtin.lsp_implementations, "Go to implementation" },
 				r = { builtin.lsp_references, "Show references" },
-				c = { builtin.lsp_code_actions, "Code Actions" },
+				s = { vim.lsp.buf.code_action, "Code Actions" },
 			},
-			K = { "<Cmd>lua vim.lsp.buf.hover()<CR>", "Hover help" },
-			["<c-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help" },
+			K = { vim.lsp.buf.hover, "Hover help" },
+			["<c-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
 			["<leader>"] = {
 				w = {
 					name = "Workspace",
-					a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add workspace folder" },
-					r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove workspace folder" },
+					a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
+					r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
 					l = {
-						"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
+						function()
+							print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+						end,
 						"List workspace folders",
 					},
 				},
 				g = {
 					name = "Lsp",
-					r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+					r = { vim.lsp.buf.rename, "Rename" },
 					d = {
 						function()
 							builtin.diagnostics({ bufnr = 0 })
@@ -72,19 +74,29 @@ M.lsp = {
 						"Show diagnostics",
 					},
 				},
-				e = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show line diagnostics" },
+				d = { vim.diagnostic.open_float, "Show line diagnostics" },
 			},
-			["[d"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "Go to next diagnostic" },
-			["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Go to previous diagnostic" },
+			["[d"] = { vim.lsp.diagnostic.goto_prev, "Go to next diagnostic" },
+			["]d"] = { vim.lsp.diagnostic.goto_next, "Go to previous diagnostic" },
 		}, { buffer = bufnr })
+		wk.register({
+			g = {
+				s = { vim.lsp.buf.range_code_action, "Code Actions" },
+			},
+		}, { mode = "v", buffer = bufnr })
 	end,
 	capabilities = {
 		formatting = function(bufnr)
 			wk.register({
 				g = {
 					name = "Lsp",
-					f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format file" },
-					a = { "<cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range Format file" },
+					f = {
+						function()
+							vim.lsp.buf.format({ async = true })
+						end,
+						"Format file",
+					},
+					a = { vim.lsp.buf.range_formatting(), "Range Format file" },
 				},
 			}, { prefix = "<leader>", buffer = bufnr })
 		end,
@@ -198,11 +210,11 @@ M.telescope = {
 -- nvim-bufferline
 M.nvim_bufferline = function()
 	wk.register({
-		["[b"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous buffer" },
-		["]b"] = { "<cmd>BufferLineCycleNext<CR>", "Next buffer" },
-		["[h"] = { "<cmd>BufferLineMovePrev<CR>", "Move buffer left" },
-		["]h"] = { "<cmd>BufferLineMoveNext<CR>", "Move buffer right" },
-		["<leader>q"] = { "<cmd>bdelete!<CR>", "Close current buffer" },
+		["<leader>e"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous buffer" },
+		["<leader>r"] = { "<cmd>BufferLineCycleNext<CR>", "Next buffer" },
+		["<leader>E"] = { "<cmd>BufferLineMovePrev<CR>", "Move buffer left" },
+		["<leader>R"] = { "<cmd>BufferLineMoveNext<CR>", "Move buffer right" },
+		["<leader>x"] = { "<cmd>bdelete!<CR>", "Close current buffer" },
 		["<leader><TAB>"] = { "<cmd>BufferLinePick<CR>", "Pick buffer" },
 	})
 end
@@ -256,6 +268,52 @@ M.hop = function()
 		l = { "<cmd>lua require'hop'.hint_lines()<CR>", "Line hint" },
 		L = { "<cmd>lua require'hop'.hint_char2()<CR>", "Char Alt hint" },
 	}, { mode = "v", prefix = "<leader>", noremap = false })
+end
+
+-- mkdnflow
+M.mkdnflow = function ()
+    local mapping = {
+		MkdnEnter = { { "n", "v" }, "<CR>" },
+		MkdnTab = false,
+		MkdnSTab = false,
+		MkdnNextLink = { "n", "<Tab>" },
+		MkdnPrevLink = { "n", "<S-Tab>" },
+		MkdnNextHeading = { "n", "]]" },
+		MkdnPrevHeading = { "n", "[[" },
+		MkdnGoBack = { "n", "<BS>" },
+		MkdnGoForward = { "n", "<Del>" },
+		MkdnFollowLink = false,
+		MkdnDestroyLink = { "n", "<M-CR>" },
+		MkdnTagSpan = { "v", "<M-CR>" },
+		MkdnMoveSource = { "n", "<F2>" },
+		MkdnYankAnchorLink = { "n", "ya" },
+		MkdnYankFileAnchorLink = { "n", "yfa" },
+		MkdnIncreaseHeading = { "n", "+" },
+		MkdnDecreaseHeading = { "n", "-" },
+		MkdnToggleToDo = { { "n", "v" }, "<C-Space>" },
+		MkdnNewListItem = false,
+		MkdnExtendList = false,
+		MkdnUpdateNumbering = { "n", "<leader>nn" },
+		MkdnTableNextCell = { "i", "<Tab>" },
+		MkdnTablePrevCell = { "i", "<S-Tab>" },
+		MkdnTableNextRow = false,
+		MkdnTablePrevRow = { "i", "<M-CR>" },
+		MkdnTableNewRowBelow = { { "n", "i" }, "<leader>ir" },
+		MkdnTableNewRowAbove = { { "n", "i" }, "<leader>iR" },
+		MkdnTableNewColAfter = { { "n", "i" }, "<leader>ic" },
+		MkdnTableNewColBefore = { { "n", "i" }, "<leader>iC" },
+		MkdnFoldSection = { "n", "<leader>f" },
+		MkdnUnfoldSection = { "n", "<leader>F" },
+	}
+    return mapping
+end
+
+-- glow
+M.glow = function ()
+    wk.register({
+        name = "Glow Markdown",
+        m = { "<cmd>Glow<cr>", "Glow Markdown" },
+    }, { prefix = "<leader>" })
 end
 
 return M

@@ -13,6 +13,12 @@ opt.inccommand = "nosplit"
 -- Better window title (turned off for now because of bug in ncurses)
 opt.title = false
 
+-- Remove default status line
+-- opt.cmdheight = 0
+
+-- Don't show mode in default status line
+opt.showcmd = false
+
 -- Enable mouse support in 'a'll modes
 opt.mouse = "a"
 
@@ -72,4 +78,10 @@ opt.smartindent = true
 -- auto commands
 --
 -- Highlight on yank
-vim.cmd([[ au TextYankPost * silent! lua opt.on_yank() ]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	desc = "Highlight yank",
+})

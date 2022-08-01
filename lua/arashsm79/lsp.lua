@@ -61,21 +61,21 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 nvim_lsp.pylsp.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-    settings = {
-        pylsp = {
-            plugins = {
-                pylint = {
-                    enabled = true,
-                    args = {
-                        "--disable=invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,redefined-outer-name,too-few-public-methods"
-                    },
-                },
-                rope_completion = {
-                    enabled = true,
-                },
-            },
-        },
-    },
+	settings = {
+		pylsp = {
+			plugins = {
+				pylint = {
+					enabled = true,
+					args = {
+						"--disable=invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,redefined-outer-name,too-few-public-methods",
+					},
+				},
+				rope_completion = {
+					enabled = true,
+				},
+			},
+		},
+	},
 })
 
 -- Rust
@@ -86,7 +86,7 @@ require("rust-tools").setup({
 
 		-- Whether to show hover actions inside the hover window
 		-- This overrides the default hover handler
-		hover_with_actions = true,
+		hover_with_actions = false,
 
 		-- how to execute terminal commands
 		-- options right now: termopen / quickfix
@@ -149,44 +149,6 @@ require("rust-tools").setup({
 
 			-- The color of the hints
 			highlight = "Comment",
-		},
-
-		hover_actions = {
-			-- the border that is used for the hover window
-			-- see vim.api.nvim_open_win()
-			border = {
-				{ "╭", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "╮", "FloatBorder" },
-				{ "│", "FloatBorder" },
-				{ "╯", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "╰", "FloatBorder" },
-				{ "│", "FloatBorder" },
-			},
-
-			-- whether the hover action window gets automatically focused
-			auto_focus = false,
-		},
-
-		-- settings for showing the crate graph based on graphviz and the dot
-		-- command
-		crate_graph = {
-			-- Backend used for displaying the graph
-			-- see: https://graphviz.org/docs/outputs/
-			-- default: x11
-			backend = "x11",
-			-- where to store the output, nil for no output stored (relative
-			-- path from pwd)
-			-- default: nil
-			output = nil,
-			-- command to pipe the output to, nil for no piping
-			pipe = nil,
-			-- NOTE: Be careful when using pipe and output together
-			-- true for all crates.io and external crates, false only the local
-			-- crates
-			-- default: true
-			full = true,
 		},
 	},
 
@@ -285,7 +247,7 @@ nvim_lsp.texlab.setup({
 
 -- C/C++
 nvim_lsp.clangd.setup({
-    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda'},
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -314,4 +276,10 @@ nvim_lsp.sumneko_lua.setup({
 			},
 		},
 	},
+})
+
+-- Dart
+nvim_lsp.dartls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
 })

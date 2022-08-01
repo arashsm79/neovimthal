@@ -142,6 +142,24 @@ require("packer").startup(function()
 			require("arashsm79.plugins.transparent")
 		end,
 	})
+    use({
+        "stevearc/dressing.nvim",
+        config = function()
+            require("arashsm79.plugins.dressing")
+        end,
+    })
+	use({
+		"jakewvincent/mkdnflow.nvim",
+		config = function()
+			require("arashsm79.plugins.mkdnflow")
+		end,
+	})
+	use({
+		"ellisonleao/glow.nvim",
+		config = function()
+			require("arashsm79.plugins.glow")
+		end,
+	})
 	-- use 'mfussenegger/nvim-dap'
 	-- use 'mfussenegger/nvim-dap-python'
 	-- use 'nvim-telescope/telescope-dap.nvim'

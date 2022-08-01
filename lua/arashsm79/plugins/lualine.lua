@@ -5,7 +5,13 @@ require("lualine").setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch" },
-		lualine_c = { "filename" },
+		lualine_c = {
+			{
+				"filename",
+				file_status = true, -- displays file status (readonly status, modified status)
+				path = 3,
+			},
+		},
 		lualine_x = {
 			{ "diagnostics", sources = { "nvim_diagnostic" } },
 			"encoding",
