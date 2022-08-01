@@ -1,9 +1,9 @@
-require('glow').setup({
-    glow_path = "", -- filled automatically with your glow bin in $PATH,
+require("glow").setup({
+    glow_path = "glow", -- filled automatically with your glow bin in $PATH,
     glow_install_path = "", -- default path for installing glow binary
     border = "shadow", -- floating window border config
-    style = "dark|light", -- filled automatically with your current editor background, you can override using glow json style
+    style = "dark", -- filled automatically with your current editor background, you can override using glow json style
     pager = false,
-    width = 80,
+    width = 100,
 })
 require("arashsm79.keybindings").glow()

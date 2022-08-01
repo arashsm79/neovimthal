@@ -6,32 +6,32 @@ require("telescope").load_extension("dap")
 -- C/C++
 local dap = require("dap")
 dap.adapters.cpp = {
-	type = "executable",
-	name = "cppdbg",
-	command = "/home/arashsm79/local/opt/vscode-cpptools/extension/debugAdapters/OpenDebugAD7",
-	args = {},
-	attach = {
-		pidProperty = "processId",
-		pidSelect = "ask",
-	},
+    type = "executable",
+    name = "cppdbg",
+    command = "/home/arashsm79/local/opt/vscode-cpptools/extension/debugAdapters/OpenDebugAD7",
+    args = {},
+    attach = {
+        pidProperty = "processId",
+        pidSelect = "ask",
+    },
 }
 vim.cmd(
-	[[command! -complete=file -nargs=* DebugC lua require "arashsm79.dap.debugger".start_c_debugger({<f-args>}, "gdb")]]
+    [[command! -complete=file -nargs=* DebugC lua require "arashsm79.dap.debugger".start_c_debugger({<f-args>}, "gdb")]]
 )
 
 -- Rust
 dap.adapters.rust = {
-	type = "executable",
-	name = "rustdbg",
-	command = "/home/arashsm79/local/opt/vscode-cpptools/extension/debugAdapters/OpenDebugAD7",
-	args = {},
-	attach = {
-		pidProperty = "processId",
-		pidSelect = "ask",
-	},
+    type = "executable",
+    name = "rustdbg",
+    command = "/home/arashsm79/local/opt/vscode-cpptools/extension/debugAdapters/OpenDebugAD7",
+    args = {},
+    attach = {
+        pidProperty = "processId",
+        pidSelect = "ask",
+    },
 }
 vim.cmd(
-	[[command! -complete=file -nargs=* DebugRust lua require "arashsm79.dap.debugger".start_c_debugger({<f-args>}, "gdb", "rust-gdb")]]
+    [[command! -complete=file -nargs=* DebugRust lua require "arashsm79.dap.debugger".start_c_debugger({<f-args>}, "gdb", "rust-gdb")]]
 )
 
 -- Python
