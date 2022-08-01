@@ -11,6 +11,9 @@ require("telescope").setup({
                 ["<esc>"] = actions.close,
             },
         },
+        cache_picker = {
+            num_pickers = 1,
+        },
     },
 })
 
