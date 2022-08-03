@@ -12,7 +12,7 @@ require("telescope").setup({
             },
         },
         cache_picker = {
-            num_pickers = 1,
+            num_pickers = 5,
         },
     },
 })

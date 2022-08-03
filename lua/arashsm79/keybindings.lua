@@ -39,19 +39,20 @@ end
 -- lsp
 M.lsp = {
     general = function(bufnr)
-        local builtin = require("telescope.builtin")
+        local b = require("telescope.builtin")
         wk.register({
             g = {
                 name = "Go to",
                 D = { vim.lsp.buf.declaration, "Go to declaraction" },
-                d = { builtin.lsp_definitions, "Go to definition" },
-                t = { builtin.lsp_type_definitions, "Show type definition" },
-                i = { builtin.lsp_implementations, "Go to implementation" },
-                r = { builtin.lsp_references, "Show references" },
-                s = { vim.lsp.buf.code_action, "Code Actions" },
+                d = { b.lsp_definitions, "Go to definition" },
+                t = { b.lsp_type_definitions, "Go to type definition" },
+                i = { b.lsp_implementations, "Go to implementation" },
+                r = { b.lsp_references, "Go to references" },
             },
             K = { vim.lsp.buf.hover, "Hover help" },
             ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
+            ["[d"] = { vim.lsp.diagnostic.goto_prev, "Go to next diagnostic" },
+            ["]d"] = { vim.lsp.diagnostic.goto_next, "Go to previous diagnostic" },
             ["<leader>"] = {
                 w = {
                     name = "Workspace",
@@ -69,15 +70,14 @@ M.lsp = {
                     r = { vim.lsp.buf.rename, "Rename" },
                     d = {
                         function()
-                            builtin.diagnostics({ bufnr = 0 })
+                            b.diagnostics({ bufnr = nil }) -- nil for all buffers and 0 for current buffer
                         end,
                         "Show diagnostics",
                     },
                 },
+                s = { vim.lsp.buf.code_action, "Code Actions" },
                 d = { vim.diagnostic.open_float, "Show line diagnostics" },
             },
-            ["[d"] = { vim.lsp.diagnostic.goto_prev, "Go to next diagnostic" },
-            ["]d"] = { vim.lsp.diagnostic.goto_next, "Go to previous diagnostic" },
         }, { buffer = bufnr })
         wk.register({
             g = {
@@ -91,14 +91,17 @@ M.lsp = {
                 g = {
                     name = "Lsp",
                     f = {
-                        function()
-                            vim.lsp.buf.format({ async = true })
-                        end,
-                        "Format file",
+                        function() vim.lsp.buf.format({ async = true }) end,
+                        "Format File",
                     },
-                    a = { vim.lsp.buf.range_formatting(), "Range Format file" },
                 },
             }, { prefix = "<leader>", buffer = bufnr })
+            wk.register({
+                g = {
+                    name = "Lsp",
+                    f = { vim.lsp.buf.range_formatting(), "Range Formatting" },
+                },
+            }, { prefix = "<leader>", mode = "v", buffer = bufnr })
         end,
     },
 }
@@ -184,20 +187,34 @@ end
 -- using namespace t
 M.telescope = {
     telescope = function()
-        local builtin = require("telescope.builtin")
+        local b = require("telescope.builtin")
         wk.register({
             t = {
                 name = "Telescope",
-                b = { "<cmd>Telescope buffers<cr>", "Show buffers" },
-                f = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy find buffer" },
-                t = { "<cmd>Telescope tags<cr>", "Show tags" },
-                ["?"] = { "<cmd>Telescope oldfiles<cr>", "Show recent files" },
-                s = { "<cmd>Telescope grep_string<cr>", "grep string" },
-                l = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+                b = { b.buffers, "Buffers" },
+                f = { b.current_buffer_fuzzy_find, "Fuzzy Find Buffer" },
+                t = { b.resume, "Resume" },
+                p = { b.pickers, "Cached Pickers" },
+                s = { b.grep_string, "Grep String" },
+                l = { b.live_grep, "Live Grep" },
+                j = { b.jumplist, "Jump List" },
+                g = {
+                    name = "Git",
+                    c = { b.git_commits, "Git Commits" },
+                    b = { b.git_branches, "Git Branches" },
+                    s = { b.git_status, "Git Status" },
+                    h = { b.git_stash, "Git Stash" },
+                },
+                h = {
+                    name = "History",
+                    c = { b.command_history, "Command History" },
+                    s = { b.search_history, "Search History" },
+                },
+                ["?"] = { b.oldfiles, "Recent Files" },
             },
             ["<space>"] = {
                 function()
-                    builtin.find_files({
+                    b.find_files({
                         hidden = true,
                     })
                 end,
