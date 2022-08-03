@@ -4,31 +4,30 @@ local wk = require("which-key")
 -- Misc and general mappings. Loaded on startup
 M.misc = function()
     -- Remap space as leader key
-    vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true })
+    vim.keymap.set("", "<Space>", "<Nop>", { noremap = true })
     vim.g.mapleader = " "
 
     -- Add move line shortcuts
-    vim.api.nvim_set_keymap("n", "<A-j>", ":m .+1<CR>==", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<A-k>", ":m .-2<CR>==", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true })
-    vim.api.nvim_set_keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true })
-    vim.api.nvim_set_keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true })
+    vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true })
+    vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true })
+    vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true })
+    vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true })
+    vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true })
+    vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true })
 
     -- Remove search highlight on escape
-    vim.api.nvim_set_keymap("n", "<Esc>", ":noh <CR>", { noremap = true })
+    vim.keymap.set("n", "<Esc>", ":noh <CR>", { noremap = true })
 
     -- Copying and pasting from system clipboard
-    vim.api.nvim_set_keymap("v", "<C-c>", '"+y', { noremap = true })
-    vim.api.nvim_set_keymap("n", "<C-c>", "<Esc>", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<C-c>", "<Esc>", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<C-v>", "<C-r>+", { noremap = true })
+    vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
+    vim.keymap.set("n", "<C-c>", "<Esc>", { noremap = true })
+    vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true })
 
     -- Better binding for exiting terminal mode
-    vim.api.nvim_set_keymap("t", "<A-Space>", "<C-\\><C-n>", { noremap = true })
+    vim.keymap.set("t", "<A-Space>", "<C-\\><C-n>", { noremap = true })
 
     -- Clear white space on empty lines and end of line
-    vim.api.nvim_set_keymap(
+    vim.keymap.set(
         "n",
         "<F6>",
         [[:let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>]],
@@ -109,35 +108,31 @@ M.lsp = {
 -- gitsigns
 -- under namespace u
 M.gitsigns = function(bufnr)
+    local g = require("gitsigns")
     wk.register({
         u = {
             name = "Gitsigns",
-            s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
-            r = { ":Gitsigns stage_hunk<CR>", "Reset hunk" },
+            s = { g.stage_hunk, "Stage hunk" },
+            r = { g.reset_hunk, "Reset hunk" },
         },
     }, { mode = "nv", prefix = "<leader>", buffer = bufnr })
 
     wk.register({
         u = {
             name = "Gitsigns",
-            S = { "<cmd>lua package.loaded.gitsigns.stage_buffer()<cr>", "Stage buffer" },
-            u = { "<cmd>lua package.loaded.gitsigns.undo_stage_hunk()<cr>", "Undo stage hunk" },
-            R = { "<cmd>lua package.loaded.gitsigns.reset_buffer()<cr>", "Reset buffer" },
-            p = { "<cmd>lua package.loaded.gitsigns.preview_hunk()<cr>", "Preview hunk" },
-            b = { "<cmd>lua package.loaded.gitsigns.blame_line{full=true}<cr>", "Blame line" },
-            t = { "<cmd>lua package.loaded.gitsigns.toggle_current_line_blame()<cr>", "Toggle current line blame" },
-            T = { "<cmd>lua package.loaded.gitsigns.toggle_deleted()<cr>", "Toggle deleted" },
-            d = { "<cmd>lua package.loaded.gitsigns.diffthis()<cr>", "Diff this" },
-            D = { "<cmd>lua package.loaded.gitsigns.gs.diffthis('~')<cr>", "Diff this ~" },
+            S = { g.stage_buffer, "Stage buffer" },
+            u = { g.undo_stage_hunk, "Undo stage hunk" },
+            R = { g.reset_buffer, "Reset buffer" },
+            p = { g.preview_hunk, "Preview hunk" },
+            b = { function() g.blame_line({ full = true }) end, "Blame line" },
+            t = { g.toggle_current_line_blame, "Toggle current line blame" },
+            T = { g.toggle_deleted, "Toggle deleted" },
+            d = { g.diffthis, "Diff this" },
+            D = { g.gs.diffthis, "Diff this ~" },
         },
         ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
         ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
     }, { prefix = "<leader>", buffer = bufnr })
-
-    wk.register({
-        ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
-        ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
-    }, { buffer = bufnr })
 
     -- Text object
     vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { buffer = bufnr })
@@ -170,12 +165,12 @@ end
 
 -- luasnip
 M.luasnip = function()
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
-    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
-    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.luasnip_s_tab_jump()", { expr = true })
-    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.luasnip_s_tab_jump()", { expr = true })
-    -- vim.api.nvim_set_keymap("i", "<C-s>", "<Plug>luasnip-next-choice", {})
-    -- vim.api.nvim_set_keymap("s", "<C-s>", "<Plug>luasnip-next-choice", {})
+    vim.keymap.set("i", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
+    vim.keymap.set("s", "<Tab>", "v:lua.luasnip_tab_jump()", { expr = true })
+    vim.keymap.set("i", "<S-Tab>", "v:lua.luasnip_s_tab_jump()", { expr = true })
+    vim.keymap.set("s", "<S-Tab>", "v:lua.luasnip_s_tab_jump()", { expr = true })
+    -- vim.keymap.set("i", "<C-s>", "<Plug>luasnip-next-choice", {})
+    -- vim.keymap.set("s", "<C-s>", "<Plug>luasnip-next-choice", {})
 end
 
 -- toggle-term
