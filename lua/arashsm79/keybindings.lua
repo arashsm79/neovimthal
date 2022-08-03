@@ -128,7 +128,6 @@ M.gitsigns = function(bufnr)
             t = { g.toggle_current_line_blame, "Toggle current line blame" },
             T = { g.toggle_deleted, "Toggle deleted" },
             d = { g.diffthis, "Diff this" },
-            D = { g.gs.diffthis, "Diff this ~" },
         },
         ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
         ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
