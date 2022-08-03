@@ -81,7 +81,7 @@ M.lsp = {
         }, { buffer = bufnr })
         wk.register({
             g = {
-                s = { vim.lsp.buf.range_code_action, "Code Actions" },
+                s = { "<ESC><cmd>lua vim.lsp.buf.range_code_action()<CR>", "Range Code Actions" },
             },
         }, { mode = "v", buffer = bufnr })
     end,
@@ -99,7 +99,7 @@ M.lsp = {
             wk.register({
                 g = {
                     name = "Lsp",
-                    f = { vim.lsp.buf.range_formatting(), "Range Formatting" },
+                    f = { "<ESC><cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range Formatting" },
                 },
             }, { prefix = "<leader>", mode = "v", buffer = bufnr })
         end,
