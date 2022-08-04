@@ -115,22 +115,24 @@ M.gitsigns = function(bufnr)
             s = { g.stage_hunk, "Stage hunk" },
             r = { g.reset_hunk, "Reset hunk" },
         },
-    }, { mode = "nv", prefix = "<leader>", buffer = bufnr })
+    }, { mode = "v", prefix = "<leader>", buffer = bufnr })
 
     wk.register({
         u = {
             name = "Gitsigns",
             S = { g.stage_buffer, "Stage buffer" },
+            s = { g.stage_hunk, "Stage hunk" },
             u = { g.undo_stage_hunk, "Undo stage hunk" },
             R = { g.reset_buffer, "Reset buffer" },
+            r = { g.reset_hunk, "Reset hunk" },
             p = { g.preview_hunk, "Preview hunk" },
             b = { function() g.blame_line({ full = true }) end, "Blame line" },
             t = { g.toggle_current_line_blame, "Toggle current line blame" },
             T = { g.toggle_deleted, "Toggle deleted" },
             d = { g.diffthis, "Diff this" },
+            ["]"] = { g.next_hunk, "Next hunk", expr = true },
+            ["["] = { g.previous_hunk, "Previus hunk", expr = true },
         },
-        ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk", expr = true },
-        ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previus hunk", expr = true },
     }, { prefix = "<leader>", buffer = bufnr })
 
     -- Text object
