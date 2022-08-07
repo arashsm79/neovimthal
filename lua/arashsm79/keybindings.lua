@@ -301,7 +301,7 @@ M.nvim_dap = function()
             p = { function() if vim.v.count > 0 then d.pause(vim.v.count) end end, "Pause Thread {v.count}" },
             v = { d.reverse_continue, "Reverse Continue" },
             g = { d.run_to_cursor, "Run to Cursor" },
-            u = {
+            y = {
                 name = "Stacktrace",
                 u = { d.up, "Go Up In Stacktrace" },
                 d = { d.down, "Go Down In Stacktrace" },
@@ -313,13 +313,25 @@ end
 M.nvim_dap_ui = function()
     local mappings = {
         -- Use a table to apply multiple mappings
-        expand = { "<CR>", "<2-LeftMouse>" },
-        open = "o",
+        expand = { "o", "<2-LeftMouse>" },
+        open = "u",
         remove = "d",
         edit = "e",
         repl = "r",
         toggle = "t",
     }
+    local dui = require("dapui")
+    wk.register({
+        a = {
+            name = "Debug Adapter",
+            u = {
+                name = "UI",
+                c = { dui.close, "Close the UI" },
+                o = { dui.open, "Open the UI" },
+                t = { dui.toggle, "Toggle the UI" },
+            }
+        },
+    }, { prefix = "<leader>" })
     return mappings
 end
 
