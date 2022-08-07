@@ -265,11 +265,9 @@ M.nvim_bufferline = function()
 end
 
 -- nvim-dap
--- telescope-dap
--- using namespace d
+-- using namespace a
 M.nvim_dap = function()
     local d = require("dap")
-    local duv = require("dap.ui.variables")
     local duw = require("dap.ui.widgets")
     wk.register({
         a = {
@@ -278,8 +276,7 @@ M.nvim_dap = function()
             a = { d.step_over, "Step Over" },
             i = { d.step_into, "Step Into" },
             o = { d.step_out, "Step Out" },
-            K = { duv.hover, "Hover" },
-            k = { duv.visual_hover, "Visual Hover" },
+            K = { duw.hover, "Hover" },
             B = {
                 name = "Breakpoints",
                 c = {
@@ -290,32 +287,56 @@ M.nvim_dap = function()
                     function() d.set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') }) end,
                     "Log Point Message",
                 },
+                l = { d.clear_breakpoints, "Clear All Breakpoints" }
             },
-            f = { function() duw.centered_float(duw.scopes) end, "Float" },
-            w = { duw.hover, "Hover" },
-            r = { d.repl.open, "Open REPL" },
+            r = {
+                name = "REPL",
+                o = { d.repl.open, "Open REPL" },
+                t = { d.repl.toggle, "Toggle REPL" },
+                r = { d.repl.close, "Close REPL" },
+            },
             l = { d.repl.run_last, "Run Last Adapter" },
             b = { d.toggle_breakpoint, "Toggle Breakpoint" },
-            s = { d.scopes, "Scopes" },
-            t = { d.toggle, "Toggle" },
+            q = { d.terminate, "Terminate Debug Session" },
+            p = { function() if vim.v.count > 0 then d.pause(vim.v.count) end end, "Pause Thread {v.count}" },
+            v = { d.reverse_continue, "Reverse Continue" },
+            g = { d.run_to_cursor, "Run to Cursor" },
+            u = {
+                name = "Stacktrace",
+                u = { d.up, "Go Up In Stacktrace" },
+                d = { d.down, "Go Down In Stacktrace" },
+            },
         },
     }, { prefix = "<leader>" })
+end
+
+M.nvim_dap_ui = function()
+    local mappings = {
+        -- Use a table to apply multiple mappings
+        expand = { "<CR>", "<2-LeftMouse>" },
+        open = "o",
+        remove = "d",
+        edit = "e",
+        repl = "r",
+        toggle = "t",
+    }
+    return mappings
 end
 
 -- hop
 M.hop = function()
     local h = require("hop")
     wk.register({
-        H = { h.hint_char1, "Char hint" },
         h = { h.hint_words, "Word hint" },
-        l = { h.hint_lines, "Line hint" },
-        L = { h.hint_char2, "Char Alt hint" },
+        H = { h.hint_lines, "Line hint" },
+        j = { h.hint_char1, "Char hint" },
+        J = { h.hint_char2, "Char Alt hint" },
     }, { prefix = "<leader>", noremap = false })
     wk.register({
-        H = { h.hint_char1, "Char hint" },
         h = { h.hint_words, "Word hint" },
-        l = { h.hint_lines, "Line hint" },
-        L = { h.hint_char2, "Char Alt hint" },
+        H = { h.hint_lines, "Line hint" },
+        j = { h.hint_char1, "Char hint" },
+        J = { h.hint_char2, "Char Alt hint" },
     }, { mode = "v", prefix = "<leader>", noremap = false })
 end
 
@@ -326,5 +347,27 @@ M.glow = function()
         m = { "<cmd>Glow<cr>", "Glow Markdown" },
     }, { prefix = "<leader>" })
 end
+
+M.languages = {
+    rust = {
+        rust_tools = function()
+            local r = require("rust-tools")
+            wk.register({
+                l = {
+                    name = "Language Specific",
+                    d = { r.debuggables, "Debuggables" },
+                    l = { r.runnables, "Runnables" },
+                    e = { r.expand_macro, "Expand Macro" },
+                    c = { r.open_cargo_toml, "Open Cargo.toml" },
+                    u = { r.external_docs, "Open Docs" },
+                    p = { r.parent_module, "Parent Module" },
+                    w = { r.workspace_refresh, "Reload Workspace" },
+                    i = { r.inlay_hints.toggle_inlay_hints, "Toggle Inlay Hints" },
+                    s = { r.server_status, "Server Status" },
+                }
+            }, { prefix = "<leader>" })
+        end
+    }
+}
 
 return M
