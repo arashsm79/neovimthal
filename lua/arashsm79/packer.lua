@@ -146,13 +146,6 @@ require("packer").startup(function()
         end,
     })
     use({
-        "jakewvincent/mkdnflow.nvim",
-        config = function()
-            require("arashsm79.plugins.mkdnflow")
-        end,
-        disable = true,
-    })
-    use({
         "ellisonleao/glow.nvim",
         config = function()
             require("arashsm79.plugins.glow")
@@ -161,8 +154,31 @@ require("packer").startup(function()
     use({
         "norcalli/nvim-colorizer.lua",
     })
-    -- use 'mfussenegger/nvim-dap'
-    -- use 'mfussenegger/nvim-dap-python'
-    -- use 'nvim-telescope/telescope-dap.nvim'
-    -- use 'tpope/vim-surround'
+    use({
+        "mfussenegger/nvim-dap",
+        config = function()
+            require("arashsm79.plugins.nvim-dap")
+        end,
+    })
+    use({
+        "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("arashsm79.plugins.nvim-dap-ui")
+        end,
+    })
+    use({
+        "theHamsta/nvim-dap-virtual-text",
+        requires = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("arashsm79.plugins.nvim-dap-virtual-text")
+        end,
+    })
+    use({
+        "nvim-telescope/telescope-dap.nvim",
+        requires = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("arashsm79.plugins.telescope-dap")
+        end,
+    })
 end)

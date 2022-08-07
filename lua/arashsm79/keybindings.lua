@@ -19,9 +19,8 @@ M.misc = function()
     vim.keymap.set("n", "<Esc>", ":noh <CR>", { noremap = true })
 
     -- Copying and pasting from system clipboard
-    vim.keymap.set("v", "<C-c>", '"+y', { noremap = true })
-    vim.keymap.set("n", "<C-c>", "<Esc>", { noremap = true })
-    vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true })
+    vim.keymap.set("v", "y", '"+y', { noremap = true })
+    vim.keymap.set({ "n", "i", "v" }, "<C-c>", "<Esc>", { noremap = true })
 
     -- Better binding for exiting terminal mode
     vim.keymap.set("t", "<A-Space>", "<C-\\><C-n>", { noremap = true })
@@ -50,8 +49,8 @@ M.lsp = {
             },
             K = { vim.lsp.buf.hover, "Hover help" },
             ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
-            ["[d"] = { vim.lsp.diagnostic.goto_prev, "Go to next diagnostic" },
-            ["]d"] = { vim.lsp.diagnostic.goto_next, "Go to previous diagnostic" },
+            ["[d"] = { vim.lsp.diagnostic.goto_prev, "Go to previous diagnostic" },
+            ["]d"] = { vim.lsp.diagnostic.goto_next, "Go to next diagnostic" },
             ["<leader>"] = {
                 w = {
                     name = "Workspace",
@@ -90,7 +89,9 @@ M.lsp = {
                 g = {
                     name = "Lsp",
                     f = {
-                        function() vim.lsp.buf.format({ async = true }) end,
+                        function()
+                            vim.lsp.buf.format({ async = true })
+                        end,
                         "Format File",
                     },
                 },
@@ -126,7 +127,12 @@ M.gitsigns = function(bufnr)
             R = { g.reset_buffer, "Reset buffer" },
             r = { g.reset_hunk, "Reset hunk" },
             p = { g.preview_hunk, "Preview hunk" },
-            b = { function() g.blame_line({ full = true }) end, "Blame line" },
+            b = {
+                function()
+                    g.blame_line({ full = true })
+                end,
+                "Blame line",
+            },
             t = { g.toggle_current_line_blame, "Toggle current line blame" },
             T = { g.toggle_deleted, "Toggle deleted" },
             d = { g.diffthis, "Diff this" },
@@ -212,6 +218,8 @@ M.telescope = {
                 function()
                     b.find_files({
                         hidden = true,
+                        no_ignore = false,
+                        no_ignore_parent = false,
                     })
                 end,
                 "Find Files",
@@ -226,6 +234,22 @@ M.telescope = {
             },
         }, { prefix = "<leader>" })
     end,
+    telescope_dap = function()
+        local ted = require("telescope").extensions.dap
+        wk.register({
+            t = {
+                name = "Telescope",
+                a = {
+                    name = "Debug Adapter",
+                    c = { ted.commands, "Show DAP commands" },
+                    o = { ted.configurations, "Choose DAP config" },
+                    i = { ted.list_breakpoints, "List breakpoints" },
+                    v = { ted.variables, "Show DAP variables" },
+                    f = { ted.frames, "Show DAP frames" },
+                },
+            },
+        }, { prefix = "<leader>" })
+    end
 }
 
 -- nvim-bufferline
@@ -244,89 +268,55 @@ end
 -- telescope-dap
 -- using namespace d
 M.nvim_dap = function()
+    local d = require("dap")
+    local duv = require("dap.ui.variables")
+    local duw = require("dap.ui.widgets")
     wk.register({
-        d = {
+        a = {
             name = "Debug Adapter",
-            -- nvim dap
-            b = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle breakpoint" },
+            c = { d.continue, "Continue" },
+            a = { d.step_over, "Step Over" },
+            i = { d.step_into, "Step Into" },
+            o = { d.step_out, "Step Out" },
+            K = { duv.hover, "Hover" },
+            k = { duv.visual_hover, "Visual Hover" },
             B = {
-                "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-                "Set breakpoint with condition",
+                name = "Breakpoints",
+                c = {
+                    function() d.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
+                    "Breakpoint Condition",
+                },
+                m = {
+                    function() d.set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') }) end,
+                    "Log Point Message",
+                },
             },
-            l = {
-                "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
-                "Set breakpoint with log",
-            },
-            ["?"] = { "<cmd>lua require'dap'.repl.open()<CR><cr>", "Open REPL" },
-            r = { "<cmd>lua require'dap'.run_last()<CR>", "Run last" },
-            -- telescope-dap
-            c = { "<cmd>lua require'telescope'.extensions.dap.commands{}<CR>", "Show DAP commands" },
-            o = { "<cmd>lua require'telescope'.extensions.dap.configurations{}<CR>", "Choose DAP config" },
-            i = { "<cmd>lua require'telescope'.extensions.dap.list_breakpoints{}<CR>", "List breakpoints" },
-            v = { "<cmd>lua require'telescope'.extensions.dap.variables{}<CR>", "Show DAP variables" },
-            f = { "<cmd>lua require'telescope'.extensions.dap.frames{}<CR>", "Show DAP frames" },
+            f = { function() duw.centered_float(duw.scopes) end, "Float" },
+            w = { duw.hover, "Hover" },
+            r = { d.repl.open, "Open REPL" },
+            l = { d.repl.run_last, "Run Last Adapter" },
+            b = { d.toggle_breakpoint, "Toggle Breakpoint" },
+            s = { d.scopes, "Scopes" },
+            t = { d.toggle, "Toggle" },
         },
     }, { prefix = "<leader>" })
-    wk.register({
-        ["<F5>"] = { "<cmd>lua require'dap'.continue()<CR>", "Debug continue" },
-        ["<F10>"] = { "<cmd>lua require'dap'.step_over()<CR>", "Debug step over" },
-        ["<F11>"] = { "<cmd>lua require'dap'.step_into()<CR>", "Debug step into" },
-        ["<F12>"] = { "<cmd>lua require'dap'.step_out()<CR>", "Debug step out" },
-    })
 end
 
 -- hop
 M.hop = function()
+    local h = require("hop")
     wk.register({
-        H = { "<cmd>lua require'hop'.hint_char1()<CR>", "Char hint" },
-        h = { "<cmd>lua require'hop'.hint_words()<CR>", "Word hint" },
-        l = { "<cmd>lua require'hop'.hint_lines()<CR>", "Line hint" },
-        L = { "<cmd>lua require'hop'.hint_char2()<CR>", "Char Alt hint" },
+        H = { h.hint_char1, "Char hint" },
+        h = { h.hint_words, "Word hint" },
+        l = { h.hint_lines, "Line hint" },
+        L = { h.hint_char2, "Char Alt hint" },
     }, { prefix = "<leader>", noremap = false })
     wk.register({
-        H = { "<cmd>lua require'hop'.hint_char1()<CR>", "Char hint" },
-        h = { "<cmd>lua require'hop'.hint_words()<CR>", "Word hint" },
-        l = { "<cmd>lua require'hop'.hint_lines()<CR>", "Line hint" },
-        L = { "<cmd>lua require'hop'.hint_char2()<CR>", "Char Alt hint" },
+        H = { h.hint_char1, "Char hint" },
+        h = { h.hint_words, "Word hint" },
+        l = { h.hint_lines, "Line hint" },
+        L = { h.hint_char2, "Char Alt hint" },
     }, { mode = "v", prefix = "<leader>", noremap = false })
-end
-
--- mkdnflow
-M.mkdnflow = function()
-    local mapping = {
-        MkdnEnter = { { "n", "v" }, "<CR>" },
-        MkdnTab = false,
-        MkdnSTab = false,
-        MkdnNextLink = { "n", "<Tab>" },
-        MkdnPrevLink = { "n", "<S-Tab>" },
-        MkdnNextHeading = { "n", "]]" },
-        MkdnPrevHeading = { "n", "[[" },
-        MkdnGoBack = { "n", "<BS>" },
-        MkdnGoForward = { "n", "<Del>" },
-        MkdnFollowLink = false,
-        MkdnDestroyLink = { "n", "<M-CR>" },
-        MkdnTagSpan = { "v", "<M-CR>" },
-        MkdnMoveSource = { "n", "<F2>" },
-        MkdnYankAnchorLink = { "n", "ya" },
-        MkdnYankFileAnchorLink = { "n", "yfa" },
-        MkdnIncreaseHeading = { "n", "+" },
-        MkdnDecreaseHeading = { "n", "-" },
-        MkdnToggleToDo = { { "n", "v" }, "<C-Space>" },
-        MkdnNewListItem = false,
-        MkdnExtendList = false,
-        MkdnUpdateNumbering = { "n", "<leader>nn" },
-        MkdnTableNextCell = { "i", "<Tab>" },
-        MkdnTablePrevCell = { "i", "<S-Tab>" },
-        MkdnTableNextRow = false,
-        MkdnTablePrevRow = { "i", "<M-CR>" },
-        MkdnTableNewRowBelow = { { "n", "i" }, "<leader>ir" },
-        MkdnTableNewRowAbove = { { "n", "i" }, "<leader>iR" },
-        MkdnTableNewColAfter = { { "n", "i" }, "<leader>ic" },
-        MkdnTableNewColBefore = { { "n", "i" }, "<leader>iC" },
-        MkdnFoldSection = { "n", "<leader>f" },
-        MkdnUnfoldSection = { "n", "<leader>F" },
-    }
-    return mapping
 end
 
 -- glow

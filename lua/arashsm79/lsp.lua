@@ -5,6 +5,7 @@ local on_attach = function(client, bufnr)
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
+
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
     local keybindings = require("arashsm79.keybindings")
@@ -28,7 +29,7 @@ local on_attach = function(client, bufnr)
 		autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 		autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 		augroup END
-		]],
+		]]         ,
             false
         )
     end
@@ -156,11 +157,14 @@ require("rust-tools").setup({
     -- For more settings, see:
     -- https://rust-analyzer.github.io/manual.html#configuration
     server = {
-        -- standalone file support
-        -- setting it to false may improve startup time
         on_attach = on_attach,
         capabilities = capabilities,
+        -- standalone file support
+        -- setting it to false may improve startup time
         standalone = false,
+        cmd_env = {
+            CARGO_TARGET_DIR = "/tmp/rust-analyzer",
+        },
         settings = {
             ["rust-analyzer"] = {
                 assist = {

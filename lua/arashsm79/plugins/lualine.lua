@@ -1,8 +1,7 @@
 require("lualine").setup({
     options = {
         theme = "material",
-        disabled_filetypes = {
-        },
+        disabled_filetypes = {},
         globalstatus = true,
     },
     sections = {

@@ -8,6 +8,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_command("packadd packer.nvim")
 end
 
+-- Load in injections if they're set
+if vim.env.NVIM_LUA_INJECTION ~= nil then
+    vim.g.injection = dofile(vim.env.NVIM_LUA_INJECTION)
+end
+
 -- Basic general options
 require("arashsm79.options")
 
