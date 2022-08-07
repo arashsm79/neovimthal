@@ -351,19 +351,17 @@ end
 M.languages = {
     rust = {
         rust_tools = function()
-            local r = require("rust-tools")
             wk.register({
                 l = {
                     name = "Language Specific",
-                    d = { r.debuggables, "Debuggables" },
-                    l = { r.runnables, "Runnables" },
-                    e = { r.expand_macro, "Expand Macro" },
-                    c = { r.open_cargo_toml, "Open Cargo.toml" },
-                    u = { r.external_docs, "Open Docs" },
-                    p = { r.parent_module, "Parent Module" },
-                    w = { r.workspace_refresh, "Reload Workspace" },
-                    i = { r.inlay_hints.toggle_inlay_hints, "Toggle Inlay Hints" },
-                    s = { r.server_status, "Server Status" },
+                    d = { require("rust-tools.debuggables").debuggables, "Debuggables" },
+                    l = { require("rust-tools.runnables").runnables, "Runnables" },
+                    e = { require("rust-tools.expand_macro").expand_macro, "Expand Macro" },
+                    c = { require("rust-tools.open_cargo_toml").open_cargo_toml, "Open Cargo.toml" },
+                    u = { require("rust-tools.external_docs").open_external_docs, "Open Docs" },
+                    p = { require("rust-tools.parent_module").parent_module, "Parent Module" },
+                    w = { require("rust-tools.workspace_refresh").workspace_refresh, "Reload Workspace" },
+                    i = { require("rust-tools.inlay_hints").toggle_inlay_hints, "Toggle Inlay Hints" },
                 }
             }, { prefix = "<leader>" })
         end
