@@ -17,7 +17,7 @@ opt.title = false
 -- opt.cmdheight = 0
 
 -- Don't show mode in default status line
-opt.showcmd = false
+opt.showmode = false
 
 -- Enable mouse support in 'a'll modes
 opt.mouse = "a"
