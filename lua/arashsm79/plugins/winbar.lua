@@ -1,4 +1,4 @@
-navic.setup {
+require("nvim-navic").setup {
     icons = {
         File          = " ",
         Module        = " ",
@@ -33,3 +33,15 @@ navic.setup {
     depth_limit_indicator = "..",
 }
 
+M = {}
+
+function M.get_location()
+    local navic = require("nvim-navic")
+    if navic.is_available() then
+        return navic.get_location()
+    else
+        return "%f"
+    end
+end
+
+return M

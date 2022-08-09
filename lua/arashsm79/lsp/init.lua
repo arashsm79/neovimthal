@@ -36,13 +36,20 @@ local function on_attach(client, bufnr, language_specific_keybindings)
     end
 
     -- Set some keybinds conditional on server capabilities
-    if client.server_capabilities.document_formatting or client.server_capabilities.document_range_formatting then
+    if client.server_capabilities.documentFormattingProvider or client.server_capabilities.documentRangeFormattingProvider then
         keybindings.lsp.capabilities.formatting()
     end
 
     -- Set autocommands conditional on server_capabilities
-    if client.server_capabilities.document_highlight then
+    if client.server_capabilities.documentHighlightProvider then
         setup_highlight_under_cursor(bufnr)
+    end
+
+    -- Set winbar conditional on server_capabilities
+    if client.server_capabilities.documentSymbolProvider then
+        local navic = require "nvim-navic"
+        navic.attach(client, bufnr)
+        vim.o.winbar = "%{%v:lua.require('arashsm79.plugins.winbar').get_location()%}"
     end
 end
 
