@@ -124,7 +124,7 @@ require("packer").startup(function()
         end,
     })
     use({
-        "simrat39/rust-tools.nvim",
+        "~/Playground/rust-tools.nvim",
     })
     use({
         "folke/todo-comments.nvim",
@@ -181,4 +181,14 @@ require("packer").startup(function()
             require("arashsm79.plugins.telescope-dap")
         end,
     })
+    use({
+        "nvim-lua/plenary.nvim",
+    })
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig",
+        config = function()
+            require("arashsm79.plugins.winbar")
+        end,
+    }
 end)

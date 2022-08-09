@@ -218,8 +218,6 @@ M.telescope = {
                 function()
                     b.find_files({
                         hidden = true,
-                        no_ignore = false,
-                        no_ignore_parent = false,
                     })
                 end,
                 "Find Files",
