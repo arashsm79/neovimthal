@@ -1,6 +1,6 @@
 require("toggleterm").setup({
     size = 15,
-    open_mapping = require("arashsm79.keybindings").toggle_term(),
+    open_mapping = nil,
     hide_numbers = true, -- hide the number column in toggleterm buffers
     shade_filetypes = {},
     shade_terminals = false,
@@ -26,3 +26,5 @@ require("toggleterm").setup({
         winblend = 3,
     },
 })
+
+require("arashsm79.keybindings").toggle_term()

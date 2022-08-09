@@ -181,8 +181,20 @@ M.luasnip = function()
 end
 
 -- toggle-term
+local toggleterm_count = 1
 M.toggle_term = function()
-    return "<c-space>"
+    local t = require("toggleterm")
+    vim.keymap.set({"n", "t"}, "<C-SPACE>", function ()
+        if vim.v.count > 0 then
+            toggleterm_count = vim.v.count
+        end
+        -- 3 and 4 are floating the rest are horizontal
+        if vim.tbl_contains({3, 4}, toggleterm_count) then
+            t.toggle(toggleterm_count, 20, vim.fn.getcwd(), "float")
+        else
+            t.toggle(toggleterm_count, 15, vim.fn.getcwd(), "horizontal")
+        end
+    end, { noremap = true, silent = true })
 end
 
 -- telescope
