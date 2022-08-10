@@ -62,15 +62,10 @@ end
 
 local function setup_language_servers()
     local capabilities = setup_capabilities()
-    require("arashsm79.lsp.servers.c").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.java").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.haskell").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.rust").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.lua").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.python").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.tex").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.nix").setup(on_attach, capabilities)
-    require("arashsm79.lsp.servers.dart").setup(on_attach, capabilities)
+    local languages = {"c", "java", "haskell", "rust", "lua", "python", "tex", "nix", "dart"}
+    for _, language in ipairs(languages) do
+        require("arashsm79.lsp.servers." .. language).setup(on_attach, capabilities)
+    end
 end
 
 local function setup()

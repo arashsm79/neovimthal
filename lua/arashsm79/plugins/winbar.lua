@@ -40,7 +40,7 @@ function M.get_location()
     if navic.is_available() then
         return navic.get_location()
     else
-        return "%f"
+        return "%t"
     end
 end
 

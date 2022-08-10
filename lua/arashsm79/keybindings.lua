@@ -32,6 +32,12 @@ M.misc = function()
         [[:let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>]],
         { noremap = true, silent = true }
     )
+
+    wk.register({
+        n = { "<CMD>:w <CR>", "Save File" },
+        ["<F1>"] = { "<CMD>:q", "Quit" },
+        ["<C-F1>"] = { "<CMD>:q!", "Quit Without Saving" },
+    }, { prefix = "<leader>" })
 end
 
 -- lsp
@@ -184,12 +190,12 @@ end
 local toggleterm_count = 1
 M.toggle_term = function()
     local t = require("toggleterm")
-    vim.keymap.set({"n", "t"}, "<C-SPACE>", function ()
+    vim.keymap.set({ "n", "t" }, "<C-SPACE>", function()
         if vim.v.count > 0 then
             toggleterm_count = vim.v.count
         end
         -- 3 and 4 are floating the rest are horizontal
-        if vim.tbl_contains({3, 4}, toggleterm_count) then
+        if vim.tbl_contains({ 3, 4 }, toggleterm_count) then
             t.toggle(toggleterm_count, 20, vim.fn.getcwd(), "float")
         else
             t.toggle(toggleterm_count, 15, vim.fn.getcwd(), "horizontal")
@@ -370,6 +376,7 @@ M.glow = function()
     }, { prefix = "<leader>" })
 end
 
+-- language specific bindings
 M.languages = {
     rust = {
         rust_tools = function()
