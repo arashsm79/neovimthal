@@ -7,6 +7,8 @@ vim.g.transparent_enabled = true
 -- Incremental live completion
 opt.inccommand = "nosplit"
 
+vim.o.shell = "fish"
+
 -- Always use the system clipboard
 -- opt.clipboard = "unnamedplus"
 

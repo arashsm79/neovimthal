@@ -11,7 +11,7 @@ function M.setup(on_attach, capabilities)
                 build = {
                     executable = "latexmk",
                     args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-                    onSave = true,
+                    onSave = false,
                     forwardSearchAfter = false,
                 },
                 auxDirectory = ".",

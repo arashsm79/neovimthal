@@ -73,7 +73,7 @@ function M.setup(on_attach, capabilities)
                 command = "lldb-vscode",
                 name = "rt_lldb",
             },
-            std_source_map = false,
+            std_source_map = true,
             configuration = {
             }
         },

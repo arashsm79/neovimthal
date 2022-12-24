@@ -35,8 +35,8 @@ M.misc = function()
 
     wk.register({
         n = { "<CMD>:w <CR>", "Save File" },
-        ["<F1>"] = { "<CMD>:q", "Quit" },
-        ["<C-F1>"] = { "<CMD>:q!", "Quit Without Saving" },
+        ["<F1>"] = { "<CMD>:q <CR>", "Quit" },
+        ["<C-F1>"] = { "<CMD>:q! <CR>", "Quit Without Saving" },
     }, { prefix = "<leader>" })
 end
 
@@ -132,7 +132,6 @@ M.gitsigns = function(bufnr)
             u = { g.undo_stage_hunk, "Undo stage hunk" },
             R = { g.reset_buffer, "Reset buffer" },
             r = { g.reset_hunk, "Reset hunk" },
-            p = { g.preview_hunk, "Preview hunk" },
             b = {
                 function()
                     g.blame_line({ full = true })
@@ -142,8 +141,8 @@ M.gitsigns = function(bufnr)
             t = { g.toggle_current_line_blame, "Toggle current line blame" },
             T = { g.toggle_deleted, "Toggle deleted" },
             d = { g.diffthis, "Diff this" },
-            ["]"] = { g.next_hunk, "Next hunk", expr = true },
-            ["["] = { g.previous_hunk, "Previus hunk", expr = true },
+            n = { g.next_hunk, "Next hunk" },
+            p = { g.previous_hunk, "Previus hunk" },
         },
     }, { prefix = "<leader>", buffer = bufnr })
 
@@ -161,18 +160,13 @@ end
 -- nvim-cmp
 M.nvim_cmp = function()
     local cmp = require("cmp")
-    local types = require("cmp.types")
-    local mapping = {
-        ["<Down>"] = cmp.mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Select }),
-        ["<Up>"] = cmp.mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Select }),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert }),
-        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-        ["<C-q>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-    }
+    local mapping = cmp.mapping.preset.insert({
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-q>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<c-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    })
     return mapping
 end
 
@@ -196,7 +190,7 @@ M.toggle_term = function()
         end
         -- 3 and 4 are floating the rest are horizontal
         if vim.tbl_contains({ 3, 4 }, toggleterm_count) then
-            t.toggle(toggleterm_count, 20, vim.fn.getcwd(), "float")
+            t.toggle(toggleterm_count, 30, vim.fn.getcwd(), "float")
         else
             t.toggle(toggleterm_count, 15, vim.fn.getcwd(), "horizontal")
         end

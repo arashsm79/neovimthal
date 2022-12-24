@@ -56,13 +56,13 @@ end
 -- Set capabilities
 local function setup_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
     return capabilities
 end
 
 local function setup_language_servers()
     local capabilities = setup_capabilities()
-    local languages = {"c", "java", "haskell", "rust", "lua", "python", "tex", "nix", "dart"}
+    local languages = {"c", "java", "haskell", "rust", "lua-lang", "python", "tex", "nix", "dart"}
     for _, language in ipairs(languages) do
         require("arashsm79.lsp.servers." .. language).setup(on_attach, capabilities)
     end

@@ -35,6 +35,15 @@ require("filetype").setup({
                 vim.opt.softtabstop = 2 -- number of spaces in tab when editing
                 vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
             end,
+            ["dart"] = function()
+                vim.opt.filetype = "dart"
+                vim.opt.tabstop = 2 -- number of visual spaces per TAB
+                vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+                vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
+            end,
+            ["tex"] = function()
+                vim.opt.filetype = "tex"
+            end,
         },
         function_literal = {
             -- Brewfile = function()

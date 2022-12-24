@@ -9,6 +9,7 @@ require("telescope").setup({
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
+                ["<c-y>"] = actions.select_default,
             },
         },
         cache_picker = {
