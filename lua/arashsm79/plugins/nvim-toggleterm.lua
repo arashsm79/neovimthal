@@ -23,7 +23,7 @@ require("toggleterm").setup({
         border = "single", -- | 'double' | 'shadow' | 'curved' | ... other options supported by win open
         width = 130,
         height = 30,
-        winblend = 3,
+        winblend = 0,
     },
 })
 

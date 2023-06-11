@@ -4,6 +4,8 @@ require("filetype").setup({
         extensions = {
             -- Set the filetype of *.pn files to potion
             sdf = "xml",
+            urdf = "xml",
+            xacro = "xml",
             nix = "nix",
         },
         literal = {
@@ -25,6 +27,18 @@ require("filetype").setup({
             end,
             ["c"] = function()
                 vim.opt.filetype = "c"
+                vim.opt.tabstop = 2 -- number of visual spaces per TAB
+                vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+                vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
+            end,
+            ["urdf"] = function()
+                vim.opt.filetype = "xml"
+                vim.opt.tabstop = 2 -- number of visual spaces per TAB
+                vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+                vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent
+            end,
+            ["xacro"] = function()
+                vim.opt.filetype = "xml"
                 vim.opt.tabstop = 2 -- number of visual spaces per TAB
                 vim.opt.softtabstop = 2 -- number of spaces in tab when editing
                 vim.opt.shiftwidth = 2 -- number of spaces to use for autoindent

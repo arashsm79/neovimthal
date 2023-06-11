@@ -26,7 +26,7 @@ end
 local function on_attach(client, bufnr, language_specific_keybindings)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    -- Set  keybindings
+    -- Set keybindings
     local keybindings = require("arashsm79.keybindings")
     keybindings.lsp.general()
 
@@ -62,7 +62,7 @@ end
 
 local function setup_language_servers()
     local capabilities = setup_capabilities()
-    local languages = {"c", "java", "haskell", "rust", "lua-lang", "python", "tex", "nix", "dart"}
+    local languages = {"c", "java", "haskell", "language-tool", "rust", "lua-lang", "python", "tex", "nix", "dart"}
     for _, language in ipairs(languages) do
         require("arashsm79.lsp.servers." .. language).setup(on_attach, capabilities)
     end

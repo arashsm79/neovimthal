@@ -19,7 +19,7 @@ M.misc = function()
     vim.keymap.set("n", "<Esc>", ":noh <CR>", { noremap = true })
 
     -- Copying and pasting from system clipboard
-    vim.keymap.set("v", "y", '"+y', { noremap = true })
+    vim.keymap.set("v", "Y", '"+y', { noremap = true })
     vim.keymap.set({ "n", "i", "v" }, "<C-c>", "<Esc>", { noremap = true })
 
     -- Better binding for exiting terminal mode
