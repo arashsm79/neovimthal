@@ -15,6 +15,7 @@ end
 
 -- Basic general options
 require("arashsm79.options")
+require("arashsm79.filetype")
 
 -- If loading inside VSCode, don't load any other configurations
 if vim.fn.exists("g:vscode") ~= 0 then

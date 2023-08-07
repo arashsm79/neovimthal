@@ -118,12 +118,6 @@ require("packer").startup(function()
         end,
     })
     use({
-        "nathom/filetype.nvim",
-        config = function()
-            require("arashsm79.plugins.filetype")
-        end,
-    })
-    use({
         "~/Playground/rust-tools.nvim",
     })
     use({
