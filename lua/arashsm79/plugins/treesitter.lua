@@ -4,7 +4,7 @@ require("nvim-treesitter.configs").setup({
     ignore_install = { "fusion" },
     highlight = {
         disable = { "latex", "fusion" },
-        enable = true, -- false will disable the whole extension
+        enable = (not vim.g.vscode), -- false will disable the whole extension
     },
     indent = {
         enable = false,

@@ -13,7 +13,17 @@ function M.setup(on_attach, capabilities)
         filetypes = { "text", "plaintex", "tex", "markdown" },
         settings = {
             ltex = {
-                language = "en"
+                language = "en-US",
+                additionalRules = {
+                    enablePickyRules = true,
+                    motherTongue = "en-US",
+                },
+                dictionary = {
+                    ["en_US"] = { ":/home/arashsm79/.config/nvim/dictionary/en-dictionary.txt" },
+                },
+                disabledRules = {
+                    ["en-US"] = {"WHITESPACE_RULE"}
+                },
             },
         },
         flags = { debounce_text_changes = 300 },

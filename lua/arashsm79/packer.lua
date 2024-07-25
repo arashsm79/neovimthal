@@ -110,6 +110,7 @@ require("packer").startup(function()
         config = function()
             require("arashsm79.plugins.firenvim")
         end,
+        run = function() vim.fn['firenvim#install'](0) end,
     })
     use({
         "lewis6991/impatient.nvim",
